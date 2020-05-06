@@ -11,8 +11,7 @@ const app = express();
 
 app.use(bodyParser.json())
 
-app.use('/api/users',userRoutes)
-app.use('/api/jobs',jobPostingRoutes)
+
 
 mongoose.connect("mongodb+srv://aarjav:test-pass@cluster0-n3b2h.mongodb.net/job_board?retryWrites=true&w=majority",{useNewUrlParser:true, useUnifiedTopology:true})
     .then( () => {
