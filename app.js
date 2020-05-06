@@ -3,9 +3,13 @@ const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 
 const userRoutes = require('./routes/user_routes')
-const jobPostingRoutes = require('./routes/job_posting_routes')
+const jpRoutes = require('./routes/job_posting_routes')
 
 const app = express();
+
+app.use('/api/users',userRoutes)
+app.use('/api/jobpost',jpRoutes)
+
 
 // Routes
 
