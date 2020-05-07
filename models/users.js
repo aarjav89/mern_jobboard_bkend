@@ -61,4 +61,17 @@ const usersSchema = new Schema( {
                 }
             });
 
-module.exports = mongoose.model("User",usersSchema)
+
+        //called when authentication request is sent from client
+        usersSchema.methods.isCorrectPassword = function(password, callback){
+            bcrypt.compare(password, this.password, function(err, same) {
+                if (err) {
+                    callback(err);
+                } else {
+                    callback(err, same);
+                }
+            });
+        }
+
+
+module.exports = mongoose.model("Users",usersSchema)
