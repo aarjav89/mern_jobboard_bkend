@@ -10,24 +10,22 @@ const show = (req,res) => {
 
 const store = async (req,res) =>{
 
-       const {name,email,password,role,phone,salary,address } = req.body  //getting parameters thru object destructuring
+       const {name,email,password,role,phone,address_line,city,province,zip,company1,
+               position1,loc1,job_desc1,start_date,end_date, education1, institution1, degree_awarded,
+                certificate1,awarded_by1,cert_expiry_year1,exp_salary, relocate_pref  } = req.body  //getting parameters thru object destructuring
         const err=validationResult(req)
         if(!err.isEmpty()){
                 return res.status(422).json({message:err})
         }
-        const status = "active"
+        const status = "active";
 
-        const newUser = new User({
-                name,
-                email,
-                password,
-                role,
-                status,
-                phone,
-                salary
-        })
-        try{
-                user = await newUser.save()
+        var user_data = '{"name":"'+name+'", "email":"'+email+'","password":"'+password+'","role":"'+role+'","phone":"'+phone+'","exp_salary":"'+exp_salary+'"';
+         var obj = JSON.parse(user_data);
+        const newUser = new User(obj)
+
+
+    try{
+            await newUser.save()
         }
         catch(e){
                 return res.status(500).json({message:e})

@@ -6,7 +6,8 @@ const saltRounds = 10; // Required for Hashing password
 
 const usersSchema = new Schema( {
 
-    name : {type:String, required:true},
+    first_name : {type:String, required:true},
+    last_name : {type:String, required:true},
     email : {type:String, required:true, unique:true},
     password : {type:String, required:true},
     role : {type:String, required:true},
@@ -22,8 +23,8 @@ const usersSchema = new Schema( {
         {phone:{type:String,required:true}},
         {summary_line:{type:String}},
         {experience: [
-                {company1 :{type:String}, position1: {type:String}, job_desc1: {type:String}},
-                {company2 :{type:String}, position2: {type:String},job_desc2:{type:String}},
+                {company1 :{type:String}, position1: {type:String}, start_date1:{type:String}, end_date1:{type:String}, loc1:{type:String}, job_desc1: {type:String}},
+                {company2 :{type:String}, position2: {type:String}, start_date2:{type:String}, end_date2:{type:String}, loc2:{type:String}, job_desc2:{type:String}},
             ]},
         {education: [
                 {education1:{type:String}, location1:{type:String}, year1:{type:String},degree1:{type:String} },
@@ -35,7 +36,7 @@ const usersSchema = new Schema( {
                 {certificate2:{type:String}, awarded_by2:{type:String}, awarded_date2:{type:String},certificate_expiry2:{type:String} },
             ]
         }],
-        salary : {type:String},
+        exp_salary : {type:String},
         relocate_pref : {type:String}
 
         } )
