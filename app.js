@@ -7,6 +7,19 @@ const userRoutes = require('./routes/user_routes')
 
 const app = express();
 
+//To ignore CORS errors
+app.use((req,res,next)=>{
+
+    res.setHeader('Access-Control-Allow-Origin','*')
+    res.setHeader('Access-Control-Allow-Headers','Origin, Content-Type , Accept')
+
+    res.setHeader('Access-Control-Allow-Methods','GET, POST, PATCH, DELETE')
+
+
+    next();
+
+})
+
 const cookieParser = require('cookie-parser');
 app.use(cookieParser());
 
@@ -30,18 +43,7 @@ app.get('/checkToken', withAuth, function(req, res) {
     res.sendStatus(200);
 });
 
-//To ignore CORS errors
-app.use((req,res,next)=>{
 
-    res.setHeader('Access-Control-Allow-Origin','*')
-    res.setHeader('Access-Control-Allow-Headers','Origin, Content-Type , Accept')
-
-    res.setHeader('Access-Control-Allow-Methods','GET, POST, PATCH, DELETE')
-
-
-    next();
-
-})
 
 
 // Connecting to the MongoDB Database
