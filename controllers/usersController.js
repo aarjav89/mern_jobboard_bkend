@@ -10,41 +10,60 @@ const show = (req,res) => {
 
 const store = async (req,res) =>{
 
-       const {first_name,last_name,email,password,role,phone,address_line,city,province,zip,company1,
-               position1,loc1,job_desc1,start_date,end_date, education1, institution1, degree_awarded,
-                certificate1,awarded_by1,cert_expiry_year1,exp_salary, relocate_pref  } = req.body  //getting parameters thru object destructuring
+       const {first_name,last_name,email,password,role,phone,address_line,city,province,zip,summary_line, company1,
+               position1,loc1,job_desc1,start_date,end_date, education1, institution1, location1, degree_awarded1, year1,
+                certificate1,awarded_by1,awarded_date1, cert_expiry1,exp_salary, relocate_pref  } = req.body  //getting parameters thru object destructuring
         const err=validationResult(req)
         if(!err.isEmpty()){
                 return res.status(422).json({message:err})
         }
         const status = "active";
 
-        var user_data = '{"first_name":"'+first_name+'",' +
-                        '"last_name":'+last_name+
-                        '", "email":"'+email+
-                        '", "password":"'+password+
-                        '", "role":"'+role+'' +
-                        '", "phone":"'+phone+
-                        ', "address":{"address_line":"'+address_line+
-                                    '", "city":"'+city+
-                                    '", "province":"'+province+
-                                    '", "zip":"'+zip+
-                                      '" },"' +
-            '"exp_salary":"'+exp_salary+'"}';
         let user_data1 = {
             first_name:first_name,
             last_name:last_name,
-            address: {
-                address_line:address_line,
-                city:city,
-                province:province,
-                zip:zip
+            email : email,
+            password : password,
+            role:role,
+            status:status,
+            phone:phone,
+            details:{
+                address: {
+                    address_line:address_line,
+                    city:city,
+                    province:province,
+                    zip:zip
+                },
+                summary_line:summary_line,
+                experience: {
+                    company1:company1,
+                    position1:position1,
+                    start_date:start_date,
+                    end_date:end_date,
+                    loc1:loc1,
+                    job_desc1:job_desc1
+                },
+                education:{
+                    education1:education1,
+                    institution1: institution1,
+                    location1:location1,
+                    degree_awarded1:degree_awarded1,
+                    year1:year1
+                },
+                certificates:{
+                    certificate1:certificate1,
+                    awarded_by1:awarded_by1,
+                    awarded_date1:awarded_date1,
+                    cert_expiry1: cert_expiry1
+                },
 
-                 }
+            },
+            exp_salary:exp_salary,
+            relocate_pref:relocate_pref
         }
         console.log("obj rec on server:"+user_data1);
         // var obj = JSON.parse(user_data);
-        const newUser = new User(obj)
+        const newUser = new User(user_data1)
 
 
     try{
@@ -57,8 +76,10 @@ const store = async (req,res) =>{
 }
 
 
+
 const authenticate = (req,res) => {
     const { email, password } = req.body;
+    console.log("email & pass rec on server :"+email+" "+password);
     User.findOne({ email }, function(err, user) {
         if (err) {
             console.error(err);

@@ -3,7 +3,7 @@ const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 
 const userRoutes = require('./routes/user_routes')
-//const jpRoutes = require('./routes/job_posting_routes')
+const jpRoutes = require('./routes/job_posting_routes')
 
 const app = express();
 
@@ -23,6 +23,9 @@ app.use((req,res,next)=>{
 const cookieParser = require('cookie-parser');
 app.use(cookieParser());
 
+//secret token issued on successful authentication
+const secret = 'mysecretsshhh';
+
 const withAuth = require('./middleware');
 
 // Always Remember to use Body Parser above the routes declaration.
@@ -30,10 +33,9 @@ app.use(bodyParser.json())
 
 // Routes
 app.use('/api/users',userRoutes)
-//app.use('/api/jobpost',jpRoutes)
+app.use('/api/jobs',jpRoutes)
 
-//secret token issued on successful authentication
-const secret = 'mysecretsshhh';
+
 
 app.get('/api/secret', withAuth, function(req, res) {
     res.send('The password is potato');
