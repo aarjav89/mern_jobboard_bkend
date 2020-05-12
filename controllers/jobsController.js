@@ -85,8 +85,27 @@ const update = (req,res) => {
 
 }
 
-const deleteJob = (req,res) => {
+const deleteJob = async(req,res) => {
+    const job_id = req.params.job_id
 
+
+    let job;
+
+    try{
+        job = await Job.findById(job_id)
+    }catch (e) {
+        return res.status(422).json({message:e})
+    }
+
+
+    try{
+        await job.remove()
+    }catch (e) {
+        return res.status(417).json({message:e})
+    }
+
+
+    res.status(202).json({message:"Job deleted successfully"})
 }
 
 exports.index = index

@@ -9,7 +9,7 @@ router.get('/',jobsController.index)
 router.get('/:job_id',jobsController.show)
 router.post('/register',jobsController.store)
 router.patch('/update/:jobID',jobsController.update)
-router.delete('/delete/:jobID',jobsController.deleteJob)
+router.delete('/delete/:job_id',jobsController.deleteJob)
 
 
 module.exports = router
