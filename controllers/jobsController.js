@@ -66,6 +66,19 @@ const store= async (req,res) => {
 } // end show function
 
 
+const show = async (req,res) => {
+    const jobId = req.params.job_id;
+    //console.log("show method is called");
+    //console.log("job id received is "+jobId)
+    let job;
+    try{
+        job = await Job.findById(jobId)
+     } catch (e) {
+        return res.status(422).json({message:"Invalid Job Id"})
+    }
+    return res.status(200).json({job:job.toObject({getters:true})})
+}
+
 
 
 const update = (req,res) => {
@@ -77,6 +90,7 @@ const deleteJob = (req,res) => {
 }
 
 exports.index = index
+exports.show = show
 exports.store = store
 exports.update = update
 exports.deleteJob = deleteJob

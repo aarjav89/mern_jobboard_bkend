@@ -107,6 +107,8 @@ const authenticate = (req,res) => {
                 } else {
                     // Issue token
                     let mysecret = "mysecretsshhh"
+                    var c1 = cookie.serialize(user_name, email,{httpOnly:true})
+                    res.setHeader('Set-Cookie', c1);
                     const payload = { email };
                     const token = jwt.sign(payload, mysecret, {
                         expiresIn: '1h'
