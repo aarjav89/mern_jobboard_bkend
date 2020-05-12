@@ -106,8 +106,9 @@ const authenticate = (req,res) => {
                         });
                 } else {
                     // Issue token
+                    let mysecret = "mysecretsshhh"
                     const payload = { email };
-                    const token = jwt.sign(payload, secret, {
+                    const token = jwt.sign(payload, mysecret, {
                         expiresIn: '1h'
                     });
                     res.cookie('token', token, { httpOnly: true })
